@@ -85,7 +85,7 @@ class BoardContainer extends Component {
     return (
       <div>
         <Board cells={this.state.cells}/>
-        <button className='restartButton' onClick={() => this.restart}>Restart</button>
+        <button className='restartButton' onClick={() => this.restart()}>Restart</button>
         <p>Generation {this.state.counter}</p>
       </div>
     );
