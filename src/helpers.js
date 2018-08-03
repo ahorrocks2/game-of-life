@@ -6,12 +6,12 @@ export const getStemCells = () => {
 
 export const areCoordinatesValid = (x, y) => {
   const upperBound = 20;
-  const valid = (x >= 1
+  const validCoords = (x >= 1
     && x <= upperBound
     && y >= 1
     && y <= upperBound)
 
-  return valid ? [x, y] : false;
+  return validCoords && [x, y];
 }
 
 export const findNeighbors = (x, y) => {
@@ -26,11 +26,11 @@ export const findNeighbors = (x, y) => {
     [x + 1, y - 1]
   ];
 
-  const neighbors = neighborCoords.map(nc => {
-    return areCoordinatesValid(nc[0], nc[1]);
-  });
-
-  return neighbors.filter(n => n !== false);
+  return neighborCoords.reduce((n, coords) => {
+    const validCoords = areCoordinatesValid(coords[0], coords[1]);
+    validCoords && n.push(validCoords);
+    return n;
+  }, []);
 };
 
 export const isAlive = (coord, cells) => {
