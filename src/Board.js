@@ -63,7 +63,8 @@ export class Board extends Component {
   };
 
   restart = () => {
-    const newLife = createLife(this.state.cells);
+    clearInterval(this.interval);
+    const newLife = createLife(this.state.cells.map(c => ({ ...c })));
     this.setState({
       counter: 0,
       cells: newLife
