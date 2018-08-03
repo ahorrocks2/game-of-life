@@ -4,39 +4,33 @@ export const getStemCells = () => {
   );
 };
 
+export const areCoordinatesValid = (x, y) => {
+  const upperBound = 20;
+  const valid = (x >= 1
+    && x <= upperBound
+    && y >= 1
+    && y <= upperBound)
+
+  return valid ? [x, y] : false;
+}
+
 export const findNeighbors = (x, y) => {
-  const neighbors = [];
+  const neighborCoords = [
+    [x - 1, y],
+    [x + 1, y],
+    [x, y - 1],
+    [x, y + 1],
+    [x - 1, y + 1],
+    [x + 1, y + 1],
+    [x - 1, y - 1],
+    [x + 1, y - 1]
+  ];
 
-  if (x !== 1) {
-    neighbors.push([x - 1, y]);
-    if (y !== 20) {
-      neighbors.push([x - 1, y + 1]);
-    }
-  }
+  const neighbors = neighborCoords.map(nc => {
+    return areCoordinatesValid(nc[0], nc[1]);
+  });
 
-  if (x !== 20) {
-    neighbors.push([x + 1, y]);
-    if (y !== 20) {
-      neighbors.push([x + 1, y + 1]);
-    }
-  }
-
-  if (y !== 1) {
-    neighbors.push([x, y - 1]);
-    if (x !== 1) {
-      neighbors.push([x - 1, y - 1]);
-    }
-  }
-
-  if (y !== 20) {
-    neighbors.push([x, y + 1]);
-  }
-
-  if (x !== 20 && y !== 1) {
-    neighbors.push([x + 1, y - 1]);
-  }
-
-  return neighbors;
+  return neighbors.filter(n => n !== false);
 };
 
 export const isAlive = (coord, cells) => {

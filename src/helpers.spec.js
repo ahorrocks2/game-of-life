@@ -1,9 +1,20 @@
 import {
+  areCoordinatesValid,
   findNeighbors,
   isAlive,
   willCellLive,
   getNumberOfLivingNeighbors
 } from "../src/helpers";
+
+test("should return neighbor coordinates if they're valid", () => {
+  expect(areCoordinatesValid(0, 0)).toEqual(false);
+  expect(areCoordinatesValid(0, 20)).toEqual(false);
+  expect(areCoordinatesValid(-1, 4)).toEqual(false);
+  expect(areCoordinatesValid(1, 21)).toEqual(false);
+  expect(areCoordinatesValid(10, -1)).toEqual(false);
+  expect(areCoordinatesValid(1, 20)).toEqual([1, 20]);
+  expect(areCoordinatesValid(10, 10)).toEqual([10, 10]);
+});
 
 test("should find a cell's neighbors", () => {
   const neighborCases = [
