@@ -26,10 +26,10 @@ export const findNeighbors = (x, y) => {
     [x + 1, y - 1]
   ];
 
-  return neighborCoords.reduce((n, coords) => {
+  return neighborCoords.reduce((acc, coords) => {
     const validCoords = areCoordinatesValid(coords[0], coords[1]);
-    validCoords && n.push(validCoords);
-    return n;
+    validCoords && acc.push(validCoords);
+    return acc;
   }, []);
 };
 
@@ -42,17 +42,9 @@ export const isAlive = (coord, cells) => {
 
 export const willCellLive = (cell, numberOfLivingNeighbors) => {
   if (cell.alive === true) {
-    if (numberOfLivingNeighbors < 2 || numberOfLivingNeighbors > 3) {
-      return false;
-    } else {
-      return true;
-    }
+    return (numberOfLivingNeighbors < 2 || numberOfLivingNeighbors > 3) ? false : true;
   } else {
-    if (numberOfLivingNeighbors === 3) {
-      return true;
-    } else {
-      return false;
-    }
+    return (numberOfLivingNeighbors === 3) ? true : false;
   }
 };
 
